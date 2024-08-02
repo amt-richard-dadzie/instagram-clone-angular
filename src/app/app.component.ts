@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  private title = 'instagram-clone-angular';
+  public title = 'instagram-clone-angular';
 }
