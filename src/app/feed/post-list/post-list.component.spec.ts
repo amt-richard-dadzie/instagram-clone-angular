@@ -10,7 +10,7 @@ describe('PostListComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [PostListComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(PostListComponent);
     component = fixture.componentInstance;

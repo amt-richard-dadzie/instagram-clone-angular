@@ -10,7 +10,7 @@ describe('PostCardComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [PostCardComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(PostCardComponent);
     component = fixture.componentInstance;
