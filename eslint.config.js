@@ -6,6 +6,11 @@ const angular = require("angular-eslint");
 module.exports = tseslint.config(
   {
     files: ["**/*.ts"],
+    languageOptions: {
+      parserOptions: {
+        project: "./tsconfig.json",
+      },
+    },
     extends: [
       eslint.configs.recommended,
       ...tseslint.configs.recommended,
@@ -14,6 +19,60 @@ module.exports = tseslint.config(
     ],
     processor: angular.processInlineTemplates,
     rules: {
+      "@typescript-eslint/switch-exhaustiveness-check": "error",
+      "no-restricted-syntax": ["error", "IfStatement > ExpressionStatement"],
+      "@typescript-eslint/naming-convention": [
+        "error",
+        {
+          selector: ["enumMember", "typeLike"],
+          format: ["PascalCase"],
+          custom: {
+            regex: "(My|my)(?=[A-Z]\\w*)",
+            match: false,
+          },
+        },
+        {
+          selector: ["parameter"],
+          format: ["camelCase"],
+          leadingUnderscore: "allow",
+        },
+        {
+          selector: [
+            "variable",
+            "function",
+            "method",
+            "classProperty",
+            "typeProperty",
+          ],
+          format: ["camelCase"],
+          custom: {
+            regex: "(My|my)(?=[A-Z]\\w*)",
+            match: false,
+          },
+        },
+        {
+          selector: ["variable"],
+          format: ["UPPER_CASE", "camelCase"],
+          modifiers: ["global"],
+          custom: {
+            regex: "(My|my)(?=[A-Z]\\w*)",
+            match: false,
+          },
+        },
+        {
+          selector: ["variable"],
+          types: ["function"],
+          format: ["camelCase"],
+        },
+        {
+          selector: "interface",
+          custom: {
+            regex: "[Ii](?=[A-Z]\\w*)",
+            match: false,
+          },
+          format: ["PascalCase"],
+        },
+      ],
       "@angular-eslint/directive-selector": [
         "error",
         {
@@ -40,10 +99,8 @@ module.exports = tseslint.config(
       ],
       complexity: ["error", 5],
       "max-classes-per-file": ["error", 1],
-      "no-unused-vars": "warn",
       eqeqeq: ["error", "always"],
-      "indent": ["error", 2],
-      "linebreak-style": ["error", "unix"],
+      indent: ["error", 2],
       quotes: ["error", "single"],
       semi: ["error", "always"],
     },
