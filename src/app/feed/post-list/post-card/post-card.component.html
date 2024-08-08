@@ -1,1 +1,35 @@
-<p>post-card works!</p>
+<div class="card-wrapper">
+  <mat-card class="card" appearance="outlined">
+    <mat-card-header>
+      <div class="avatar">
+        <img [src]="profileImage" [alt]="'Profile of' + post.owner.full_name" />
+      </div>
+      <div class="content">
+        <mat-card-title>{{ post.owner.username }}</mat-card-title>
+      </div>
+    </mat-card-header>
+    <div class="image-wrapper">
+      <img
+        [src]="testUrl"
+        [alt]="post.carousel_media[0].accessibility_caption"
+      />
+    </div>
+
+    <div class="post-actions">
+      <mat-icon>favorite_outline</mat-icon>
+      <mat-icon fontSet="material-icons-outlined">mode_comment</mat-icon>
+    </div>
+    <p class="like">{{ post.like_count }} likes</p>
+    <mat-card-content>
+      <span
+        ><b>{{ post.owner.username }}</b></span
+      >
+      @if (post.caption !== null) {
+        <span>
+          {{ post.caption.text }}
+        </span>
+      }
+    </mat-card-content>
+  </mat-card>
+  <mat-divider></mat-divider>
+</div>
