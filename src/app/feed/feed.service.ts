@@ -6,6 +6,7 @@ import { Post, Following } from './feed';
 
 @Injectable()
 export class FeedService {
+  private readonly minMediaCount = 1;
   public constructor(private http: HttpClient) {}
 
   public getPosts(user: string) {
@@ -16,7 +17,7 @@ export class FeedService {
         map((items) =>
           items.filter(
             (item) =>
-              item.carousel_media_count >= 1 && item.media_name === 'album'
+              item.carousel_media_count >= this.minMediaCount && item.media_name === 'album'
           )
         )
       );
