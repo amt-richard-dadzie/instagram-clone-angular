@@ -1,0 +1,119 @@
+@mixin transition($duration: 0.3s) {
+  transition: $duration;
+}
+
+@mixin flex-center($direction: column, $align: flex-start, $gap: 12px) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: $align;
+  gap: $gap;
+}
+
+
+@mixin responsive-button($padding: 12px) {
+  padding: 0 $padding;
+  border-radius: 7px;
+  line-height: 1;
+  height: 100%;
+}
+
+@mixin responsive-sidebar($default-width: 21rem, $height: 100vh) {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  @include flex-center(column, flex-start);
+  width: min($default-width, 100% - 2rem);
+  height: $height;
+  padding: 40px 10px 30px 10px;
+  border-right: 1px solid #dbdbdb;
+  @include transition(0.3s);
+  background-color: #ffffff;
+}
+
+.sidebar {
+  @include responsive-sidebar();
+
+  button {
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    font-family: inherit;
+    color: inherit;
+    cursor: pointer;
+
+    span {
+      @include flex-center(row, center);
+      @include responsive-button();
+      gap: 12px;
+
+      &:hover {
+        background: #f2f2f2;
+
+        :is(mat-icon, img) {
+          scale: 1.05;
+        }
+      }
+    }
+
+    mat-icon {
+      position: relative;
+      font-size: 28px;
+      @include transition(0.2s);
+    }
+
+    img {
+      width: 28px;
+      height: 28px;
+      @include transition(0.2s);
+    }
+  }
+
+  nav {
+    flex: 1 1 auto;
+    @include flex-center(column, flex-start, 7px);
+    width: 100%;
+
+    button:last-child {
+      margin-top: auto;
+    }
+  }
+}
+
+.drawer-open {
+  width: 70px !important ;
+
+  button > span {
+    span {
+      display: none;
+    }
+  }
+}
+
+.sidebar-header {
+  width: 100%;
+  margin-bottom: 44px;
+}
+
+.logo-img {
+  height: 32px;
+}
+
+@media (max-width: 1800px) {
+  .sidebar {
+    @include responsive-sidebar(15rem);
+  }
+}
+@media (max-width: 580px) {
+  .sidebar {
+    @include responsive-sidebar(70px);
+
+    button > span {
+      span {
+        display: none;
+      }
+    }
+  }
+}

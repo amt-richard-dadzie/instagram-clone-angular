@@ -1,0 +1,20 @@
+<aside class="sidebar" [ngClass]="{ 'drawer-open': isDrawerOpen }">
+  <header class="sidebar-header">
+    <img
+      class="logo-img"
+      [src]="isDrawerOpen ? 'logo.svg' : 'instagram.svg'"
+      alt="Instagram Logo"
+    />
+  </header>
+  <nav>
+    @for (item of navItems; track $index) {
+    <button [routerLink]="item.link" (click)="item.action && item.action($event)">
+      <span>
+        <mat-icon>{{ item.icon }}</mat-icon>
+        <span>{{ item.label }}</span>
+      </span>
+    </button>
+    }
+  </nav>
+</aside>
+<app-search #searchComponent></app-search>
