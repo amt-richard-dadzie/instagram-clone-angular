@@ -1,0 +1,13 @@
+section {
+  display: flex;
+  width: 100%;
+
+  .side-content {
+    width: 20%;
+  }
+
+  main {
+    width: 80%;
+    margin-inline: auto;
+  }
+}

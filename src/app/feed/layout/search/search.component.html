@@ -1,0 +1,30 @@
+<mat-drawer-container class="drawer-container">
+  <mat-drawer #drawer mode="side">
+    <div class="search-header">
+      <h3>Search</h3>
+      <div class="field">
+        <mat-icon>search</mat-icon>
+        <input type="text" placeholder="Search" [formControl]="searchControl" />
+        @if (loading()) {
+        <app-spinner></app-spinner>
+        }
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+
+    @if (searchResults$ | async; as users) { @if(hasQuery()) {
+    <div class="result-container">
+      <ul>
+        @for (user of users; track user?.id) {
+        <li>
+          <app-search-profile
+            [user]="user"
+            [routerLink]="['profile', user?.username]"
+          ></app-search-profile>
+        </li>
+        }
+      </ul>
+    </div>
+    } }
+  </mat-drawer>
+</mat-drawer-container>

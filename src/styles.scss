@@ -79,6 +79,41 @@ img {
   height: 100%;
 }
 
+@mixin flex-center($direction: column, $align: flex-start, $gap: 12px) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: $align;
+  gap: $gap;
+}
+
+$primary-color: #0066ff;
+
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  border: 1px solid transparent;
+  padding: 0.8rem 1.7rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+  &-primary {
+    color: #fff;
+    background-color: $primary-color;
+    border-color: $primary-color;
+
+    &:disabled {
+      border-color: #c2c3c4;
+      background-color: #c2c3c4;
+      cursor: not-allowed;
+    }
+  }
+}
+
 .fs-f {
   font-size: clamp(1.3rem, 5vw, 2.25rem);
   font-weight: $fw-bold;
@@ -89,5 +124,3 @@ img {
 .fs-200 {
   font-size: clamp(1rem, 2vw, 1.025rem);
 }
-
-
