@@ -1,0 +1,12 @@
+@import "../side-bar/side-bar.component.scss";
+
+.profile {
+  @include flex-center(row, center);
+  font-size: 12px;
+
+  p {
+    &:first-child {
+      font-weight: 600;
+    }
+  }
+}

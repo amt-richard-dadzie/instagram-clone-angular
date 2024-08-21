@@ -1,0 +1,21 @@
+<div class="profile">
+  @if (user) { @if (user.full_name) { @if(profileImage$ | async; as imageUrl) {
+  <app-avatar [width]="35" [height]="35" [src]="imageUrl"></app-avatar>
+  }
+  <div>
+    <p>{{ user.full_name }}</p>
+    <p>{{ user.username }}</p>
+  </div>
+  } @else {
+  <app-avatar
+    [width]="30"
+    [height]="30"
+    src="hashtag.png"
+    [padding]="5"
+  ></app-avatar>
+  <div>
+    <p>{{ user.name }}</p>
+    <p>{{ user.media_count | number }} posts</p>
+  </div>
+  } }
+</div>
