@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { AUser } from '../../interfaces/auth';
@@ -13,7 +13,7 @@ import { constants } from '../../../utils/constants';
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   public registerForm = this.formBuilder.group({
     first_name: ['', Validators.required],
     last_name: ['', Validators.required],
@@ -29,9 +29,6 @@ export class RegisterComponent implements OnInit {
   });
   public loading = signal(false);
 
-  public ngOnInit(): void {
-    console.log(this.password.errors);
-  }
   public constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
