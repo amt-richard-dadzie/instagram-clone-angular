@@ -1,0 +1,46 @@
+.form-wrapper {
+  display: grid;
+  width: 100vw;
+  height: 100vh;
+  place-items: center;
+
+  .copyright {
+    font-size: 0.7rem;
+  }
+  .background {
+    background-color: #cbdbff;
+  }
+
+  .form-content {
+    text-align: center;
+    img {
+      margin-bottom: 1.5rem;
+      margin-inline: auto;
+    }
+    h3 {
+      font-weight: 700;
+    }
+
+    .login-header-text {
+      opacity: 0.7;
+      display: block;
+      margin-block: 0.7rem 1rem;
+    }
+
+    .sign-up-text {
+      margin-top: 1rem;
+
+      a {
+        font-weight: 600;
+      }
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      border-bottom: 1px solid #c5c3c3;
+      padding-bottom: 1.5rem;
+      margin-top: 2rem;
+    }
+  }
+}

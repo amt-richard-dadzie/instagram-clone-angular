@@ -1,0 +1,47 @@
+<section class="form-wrapper">
+  <div class="form-content">
+    <img src="home-instagram.svg" alt="instagram-logo" width="70" height="70" />
+    <h3>Welcome back</h3>
+    <span class="login-header-text"
+      >Please enter your details to access your account</span
+    >
+
+    <app-spinner *ngIf="loading()"></app-spinner>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input
+          type="email"
+          matInput
+          placeholder="Enter your email"
+          formControlName="email"
+        />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input
+          type="password"
+          matInput
+          placeholder="Enter your password"
+          id="password"
+          formControlName="password"
+        />
+      </mat-form-field>
+
+      <button
+        class="btn btn-primary"
+        type="submit"
+        [disabled]="loginForm.invalid"
+      >
+        Sign in
+      </button>
+    </form>
+
+    <p class="sign-up-text">
+      Don't have an account? <a routerLink="/auth/register">Sign up for free</a>
+    </p>
+  </div>
+
+  <p class="copyright">&copy; 2024 INSTAGRAM. All rights reserved.</p>
+</section>
