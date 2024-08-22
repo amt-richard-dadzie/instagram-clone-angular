@@ -1,0 +1,26 @@
+<div class="grid-container" [ngClass]="layout">
+  @for (post of posts; track post.id; let i = $index) {
+  <div
+    class="grid-item"
+    [ngClass]="{ large: isLarge(i) }"
+    (click)="openPostDetail(post.code)"
+    (keyup)="openPostDetail(post.code)"
+    tabindex="0"
+  >
+    <mat-icon class="icon">{{
+      isReel(post) ? "smart_display" : "library_books"
+    }}</mat-icon>
+    <img [src]="thumbnailImages[post.id]" alt="Grid Item" />
+    <div class="icon-hover-container">
+      <div class="icon-hover">
+        <span>{{ (post.like_count | number) || 0 }}</span>
+        <mat-icon>favorite</mat-icon>
+      </div>
+      <div class="icon-hover">
+        <span>{{ (post.comment_count | number) || 0 }}</span>
+        <mat-icon>mode_comment</mat-icon>
+      </div>
+    </div>
+  </div>
+  }
+</div>
