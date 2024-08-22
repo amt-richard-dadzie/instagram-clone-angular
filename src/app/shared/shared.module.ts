@@ -9,5 +9,6 @@ import { MatIconModule } from '@angular/material/icon';
   declarations: [SpinnerComponent, AvatarComponent, GridComponent],
   imports: [CommonModule, MatIconModule],
   exports: [SpinnerComponent, AvatarComponent, GridComponent],
+  
 })
 export class SharedModule {}

@@ -8,28 +8,71 @@
         <mat-card-title>{{ post.owner.username }}</mat-card-title>
       </div>
     </mat-card-header>
-    <div class="image-wrapper">
+
+    <div class="media-wrapper">
+      <video
+        [class.showVid]="isReel()"
+        [src]="mediaUrl"
+        #temvideo
+        (click)="togglePause()"
+        (keyup)="togglePause()"
+      ></video>
+      <button
+        *ngIf="isReel()"
+        (click)="toggleMute()"
+        [title]="isMuted ? 'Audio is muted' : 'Audio is not mutated'"
+      >
+        <mat-icon class="btn-mute">{{
+          isMuted ? "volume_off" : "volume_up"
+        }}</mat-icon>
+      </button>
       <img
-        [src]="testUrl"
-        [alt]="post.carousel_media[0].accessibility_caption"
+        [src]="mediaUrl"
+        alt="hello"
+        [class.showVid]="!isReel()"
+        class="post-img"
       />
     </div>
 
     <div class="post-actions">
-      <mat-icon>favorite_outline</mat-icon>
+      <mat-icon
+        (click)="toggleLike()"
+        (keyup)="toggleLike()"
+        [class.liked]="isLiked"
+        >{{ isLiked ? "favorite" : "favorite_outline" }}</mat-icon
+      >
       <mat-icon fontSet="material-icons-outlined">mode_comment</mat-icon>
     </div>
     <p class="like">{{ post.like_count }} likes</p>
-    <mat-card-content>
+    -<mat-card-content>
       <span
         ><b>{{ post.owner.username }}</b></span
       >
-      @if (post.caption !== null) {
-        <span>
-          {{ post.caption.text }}
-        </span>
-      }
+      <span *ngIf="post.caption">
+        {{ post.caption.text }}
+      </span>
     </mat-card-content>
   </mat-card>
+  <a *ngIf="post.comment_count > 0" class="view comment">
+    View all {{ post.comment_count }}
+    {{ post.comment_count > 1 ? "comments" : "comment" }}
+  </a>
+  <p *ngIf="post.comments" class="new-comment">{{ post.comments[0] }}</p>
+  <div class="comment-input-wrapper">
+    <input
+      type="text"
+      placeholder="Add a comment..."
+      class="add-comment-input"
+      [(ngModel)]="commentText"
+    />
+
+    <button
+      *ngIf="commentText.trim() !== ''"
+      class="post-comment"
+      (click)="addComment()"
+    >
+      Post
+    </button>
+  </div>
   <mat-divider></mat-divider>
 </div>
