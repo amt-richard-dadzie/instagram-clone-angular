@@ -66,7 +66,6 @@ export class RegisterComponent {
           }, 3000);
         },
         error: (error) => {
-          console.log(error);
           this.toast.danger(
             error,
             constants.TOAST_ERROR_TITLE,

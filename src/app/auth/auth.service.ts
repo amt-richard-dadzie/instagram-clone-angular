@@ -20,7 +20,6 @@ export class AuthService {
   private readonly token = this.store.selectSignal(selectRefreshToken);
 
   public register(user: AUser) {
-    console.log('register');
     return this.http
       .post<RegisterResponse>(
         `${environment.AUTH_API_BASEURL}user/signup`,

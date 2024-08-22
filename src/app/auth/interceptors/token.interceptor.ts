@@ -37,7 +37,6 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
     return authService.validateUser().pipe(
       switchMap(() => next(modifiedReq)),
       catchError((error: HttpErrorResponse) => {
-        console.log('User validation failed', error);
         if (error.status === 0) {
           toast.danger(
             'Unable to connect to server',

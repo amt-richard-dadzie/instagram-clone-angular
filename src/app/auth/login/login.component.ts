@@ -12,11 +12,11 @@ import { selectLoading } from '../auth.selectors';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
+  public loading = this.store.selectSignal(selectLoading);
   public loginForm = this.formBuilder.group({
     email: ['', Validators.required],
     password: ['', Validators.required],
   });
-  public loading = this.store.selectSignal(selectLoading);
 
   public constructor(
     private formBuilder: FormBuilder,
@@ -24,7 +24,6 @@ export class LoginComponent {
   ) {}
 
   public onSubmit() {
-    console.warn(this.loginForm.value);
     this.store.dispatch(
       AUTH_ACTIONS.login(this.loginForm.value as LoginRequestBody)
     );
