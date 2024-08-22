@@ -6,7 +6,7 @@ export const rapidApiInterceptor: HttpInterceptorFn = (req, next) => {
     const modifiedReq = req.clone({
       setHeaders: {
         'x-rapidapi-key': environment.rapidApiKey,
-        'x-rapidapi-host': 'instagram-scraper-api2.p.rapidapi.com',
+        'x-rapidapi-host': environment.rapidApiHostName,
       },
     });
 
