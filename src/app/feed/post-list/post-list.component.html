@@ -1,5 +1,8 @@
-@for (post of posts; track post) {
-<app-post-card [post]="post"></app-post-card>
-} @if(isLoading()){
-<img src="loader.gif" width="35" height="35" alt="loading-spinner" />
-}
+<div class="post-list-wrapper">
+  <div class="post-card-wrapper">
+    @for (post of posts(); track post.id) {
+    <app-post-card [post]="post"></app-post-card>
+    }
+    <app-spinner *ngIf="isLoading()"></app-spinner>
+  </div>
+</div>

@@ -1,7 +1,13 @@
-import { Component, HostListener, inject, OnInit, signal } from '@angular/core';
-import { FeedService } from '../feed.service';
-import { delay, exhaustMap, map, take } from 'rxjs';
-import { PostItem, User } from '../feed';
+import { FEED_ACTIONS } from './../feed.actions';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { take } from 'rxjs';
+import {
+  selectPosts,
+  selectFollowing,
+  selectFeedIsLoading,
+} from '../feed.selectors';
+import { FeedState } from '../feed.state';
 
 @Component({
   selector: 'app-post-list',
@@ -9,29 +15,16 @@ import { PostItem, User } from '../feed';
   styleUrl: './post-list.component.scss',
 })
 export class PostListComponent implements OnInit {
-  private feedService = inject(FeedService);
-  public isLoading = signal(false);
-  private following: User[] = [];
-  public posts: PostItem[] = [];
+  public posts = this.store.selectSignal(selectPosts);
+  public isLoading = this.store.selectSignal(selectFeedIsLoading);
+  private following$ = this.store.select(selectFollowing);
+
+  public constructor(private store: Store<FeedState>) {}
 
   public ngOnInit(): void {
-    this.loadInitialFeed();
-  }
-
-  private loadInitialFeed() {
-    this.feedService
-      .getFollowing()
-      .pipe(
-        map((res) => res.data.items.slice(7, 9)),
-        exhaustMap((users) => {
-          this.following = users;
-          return this.feedService.getPosts(users[0].username);
-        }),
-        take(1)
-      )
-      .subscribe((posts) => {
-        this.posts = posts;
-      });
+    if (this.posts().length === 0) {
+      this.store.dispatch(FEED_ACTIONS.loadInitialFeed());
+    }
   }
 
   @HostListener('window:scroll', ['$event'])
@@ -41,20 +34,10 @@ export class PostListComponent implements OnInit {
         document.body.offsetHeight &&
       !this.isLoading()
     ) {
-      this.loadMoreFeed();
-    }
-  }
-
-  private loadMoreFeed() {
-    this.isLoading.set(true);
-
-    const secondUser = this.following[1].username;
-    this.feedService
-      .getPosts(secondUser)
-      .pipe(delay(3000), take(1))
-      .subscribe((newPosts) => {
-        this.posts.push(...newPosts);
-        this.isLoading.set(false);
+      this.following$.pipe(take(1)).subscribe((following) => {
+        const user = following[1].username;
+        this.store.dispatch(FEED_ACTIONS.loadMoreFeed({ user }));
       });
+    }
   }
 }

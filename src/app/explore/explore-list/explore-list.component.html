@@ -1,0 +1,8 @@
+<div class="explore-wrapper">
+  @if (explore$ | async; as posts) {
+  <app-grid [posts]="posts" layout="explore"></app-grid>
+  } 
+  @if(loading()) {
+  <app-spinner></app-spinner>
+  }
+</div>

@@ -35,14 +35,15 @@ $instagram-clone-angular-theme: mat.define-theme(
 
 // Comment out the line below if you want to use the deprecated `color` inputs.
 // @include mat.color-variants-backwards-compatibility($instagram-clone-angular-theme);
-@import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap");
 
 $font-family-base: "Libre Franklin", -apple-system, BlinkMacSystemFont, "Roboto",
   "Droid Sans", "Helvetica", "Arial", sans-serif;
 $font-size-base: 1rem;
+$primary-color: #0066ff;
 $line-height-base: 1.5;
 $body-bg: #ffffff;
 $body-color: #212529;
+$border-color: #c2c3c4;
 $fw-bold: 700;
 
 * {
@@ -86,8 +87,6 @@ img {
   gap: $gap;
 }
 
-$primary-color: #0066ff;
-
 .btn {
   display: inline-block;
   font-weight: 400;
@@ -102,13 +101,13 @@ $primary-color: #0066ff;
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
   &-primary {
-    color: #fff;
+    color: $body-bg;
     background-color: $primary-color;
     border-color: $primary-color;
 
     &:disabled {
-      border-color: #c2c3c4;
-      background-color: #c2c3c4;
+      border-color: $border-color;
+      background-color: $border-color;
       cursor: not-allowed;
     }
   }

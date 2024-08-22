@@ -10,7 +10,7 @@ import { FeedService } from '../../feed.service';
 })
 export class SearchProfileComponent implements OnInit {
   private feedService = inject(FeedService);
-  @Input() public user!: ResponseCombined | undefined;
+  @Input() public user!: Partial<ResponseCombined>;
   public profileImage$!: Observable<string>;
   public hash!: HashTags;
 

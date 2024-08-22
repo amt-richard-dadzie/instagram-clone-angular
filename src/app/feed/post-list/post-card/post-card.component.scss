@@ -1,5 +1,5 @@
 .card-wrapper {
-  max-width: 400px;
+  max-width: 470px;
   font-size: 0.9rem;
 
   mat-divider {
@@ -45,14 +45,6 @@
       }
     }
 
-    .image-wrapper {
-      height: fit-content;
-    }
-
-    img {
-      width: 100%;
-      border-radius: 3px;
-    }
     .like {
       font-weight: 500;
     }
@@ -61,11 +53,76 @@
       gap: 10px;
       padding-block: 0.3rem;
     }
-
+    .liked {
+      color: red;
+    }
     mat-card-content {
       padding-inline: 0;
       padding-block: 0;
       margin-top: 0.1rem;
+    }
+  }
+  .view-comment {
+    opacity: 0.7;
+    font-style: 14px;
+    text-decoration: none;
+    display: block;
+  }
+  .new-comment {
+    font-size: 12px;
+    opacity: 0.9;
+  }
+  .comment-input-wrapper {
+    display: flex;
+    align-items: center;
+
+    .add-comment-input {
+      border: none;
+      display: block;
+      padding-block: 10px;
+      outline: none;
+      background-color: transparent;
+      width: 100%;
+    }
+    .post-comment {
+      color: blue;
+      border: none;
+      font-size: 14px;
+      font-weight: 500;
+      background-color: transparent;
+    }
+  }
+
+  .media-wrapper {
+    position: relative;
+    height: fit-content;
+    background-color: #eee;
+
+    img {
+      width: 100%;
+      border-radius: 3px;
+    }
+
+    button {
+      position: absolute;
+      background: transparent;
+      border: none;
+      bottom: 2px;
+      right: 2px;
+
+      .btn-mute {
+        background-color: #f1f1f1;
+      }
+    }
+
+    .post-img,
+    video {
+      display: none;
+    }
+
+    .showVid {
+      display: block;
+      max-width: 470px;
     }
   }
 }
