@@ -1,0 +1,76 @@
+<div
+  class="overlay"
+  (click)="closeModal()"
+  (keyup)="closeModal()"
+  tabindex="0"
+></div>
+<div class="modal-content">
+  <div class="post-image">
+    <video
+      [class.showVid]="isReel()"
+      *ngIf="isReel()"
+      #temvideo
+      autoplay
+      loop
+      [src]="mediaUrl()"
+      (click)="togglePause()"
+      (keyup)="togglePause()"
+    ></video>
+
+    <img
+      [src]="mediaUrl()"
+      *ngIf="!isReel()"
+      alt="hello"
+      [class.showVid]="!isReel()"
+      class="post-img"
+    />
+  </div>
+
+  <div
+    class="post-details"
+    *ngIf="postDetails.post && postDetails.comments.length > 0"
+  >
+    <header class="post-header">
+      <app-avatar [src]="profileImage" />
+      <p>{{ postDetails.post.owner.username }}</p>
+    </header>
+    <div class="content-area">
+      <div class="post-owner">
+        <app-avatar [src]="profileImage"></app-avatar>
+        <p>{{ postDetails.post.owner.username }}</p>
+      </div>
+      <p *ngIf="postDetails.post.caption">
+        {{ postDetails.post.caption.text }}
+      </p>
+      @for (comment of postDetails.comments; track comment.id) {
+      <div class="comment-card">
+        <app-avatar [src]="commentProfileImages[comment.id]" />
+        <div>
+          <p>{{ comment.user.username }}</p>
+          <span>{{ comment.text }}</span>
+        </div>
+      </div>
+      }
+    </div>
+    <div class="post-footer">
+      <div class="likes">
+        <div class="like-info">
+          <p *ngIf="postDetails.post.metrics.like_count">
+            {{ postDetails.post.metrics.like_count }}
+            {{ postDetails.post.metrics.like_count > 1 ? "likes" : "like" }}
+          </p>
+          <span>{{
+            postDetails.post.taken_at * 1000 | date : "d MMMM y"
+          }}</span>
+        </div>
+      </div>
+      <div class="comment-wrapper">
+        <input
+          type="text"
+          placeholder="Add a comment...."
+          class="add-comment-input"
+        />
+      </div>
+    </div>
+  </div>
+</div>
