@@ -28,7 +28,7 @@ export class SearchComponent implements OnInit {
   private feedService = inject(FeedService);
   private toast = inject(NgToastService);
   @ViewChild('drawer') public drawer!: MatDrawer;
-  public searchResults$!: Observable<Partial<ResponseCombined[]>>;
+  public searchResults$!: Observable<Partial<ResponseCombined>[]>;
   public searchControl = new FormControl('');
   public hasQuery = signal(false);
   public loading = signal(false);
@@ -49,7 +49,6 @@ export class SearchComponent implements OnInit {
       }),
       filter((query) => !!query?.trim()),
       switchMap((query) => this.performSearch(query as string)),
-      catchError((error) => this.handleSearchError(error)),
       map((res) => res.data.items)
     );
   }
@@ -60,14 +59,16 @@ export class SearchComponent implements OnInit {
       ? this.feedService.searchHashTags(query.slice(1))
       : this.feedService.searchUser(query);
 
-    return searchMethod.pipe(finalize(() => this.loading.set(false)));
+    return searchMethod.pipe(
+      catchError((error) => this.handleSearchError(error)),
+      finalize(() => this.loading.set(false))
+    );
   }
 
   private handleSearchError(error: HttpErrorResponse) {
     if (error.status === 404) {
       this.toast.danger('No result found', constants.TOAST_SUCCESS_TITLE);
     }
-    console.log(error);
     return EMPTY;
   }
 }

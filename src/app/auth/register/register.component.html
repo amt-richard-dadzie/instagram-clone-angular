@@ -1,0 +1,90 @@
+<section class="form-wrapper">
+  <div class="bg-wrapper">
+    <div class="has-account">
+      <h3>Already Signed up ?</h3>
+      <span
+        >Log in to your account to continue enjoy the features of the
+        agent</span
+      >
+      <button class="btn-secondary" routerLink="/auth/login">Log In</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <app-spinner *ngIf="loading()"></app-spinner>
+
+    <h1>Sign Up</h1>
+
+    <span class="header-text"
+      >Let's get you all set up so you can start creating your first onboarding
+      experience</span
+    >
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="name-info">
+        <mat-form-field>
+          <mat-label>First Name</mat-label>
+          <input
+            type="email"
+            matInput
+            placeholder="Enter your email"
+            formControlName="first_name"
+          />
+          <mat-error *ngIf="firstName?.errors?.['required']">
+            First name is required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Last Name</mat-label>
+          <input
+            type="email"
+            matInput
+            placeholder="Enter your email"
+            formControlName="last_name"
+          />
+          <mat-error *ngIf="lastName.errors?.['required']">
+            Last name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input
+          type="email"
+          matInput
+          placeholder="Enter your email"
+          formControlName="email"
+        />
+        <mat-error *ngIf="email.errors?.['required']">
+          Email is required
+        </mat-error>
+        <mat-error
+          *ngIf="email.errors?.['invalidDomain']"
+          >{{email.errors?.['invalidDomain'].message}}</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input
+          type="password"
+          matInput
+          placeholder="Enter your password"
+          id="password"
+          formControlName="password"
+        />
+        <mat-error *ngIf="password.errors?.['required']">
+          Password is mandatory
+        </mat-error>
+      </mat-form-field>
+
+      <button
+        class="btn btn-primary"
+        type="submit"
+        [disabled]="registerForm.invalid"
+      >
+        Sign up
+      </button>
+    </form>
+  </div>
+</section>

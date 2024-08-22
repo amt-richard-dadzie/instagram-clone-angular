@@ -1,0 +1,29 @@
+<div class="profile-wrapper" *ngIf="profile$ | async as profile">
+  <header class="container">
+    <div class="avatar" *ngIf="profileImage$ | async as profileImage">
+      <app-avatar
+        [width]="130"
+        [height]="130"
+        [src]="profileImage"
+      ></app-avatar>
+    </div>
+    <div class="profile-details-header">
+      <h2>{{ profile.data.username }}</h2>
+      <div class="profile-numbers">
+        <p>
+          <b>{{ profile.data.media_count | number }}</b> posts
+        </p>
+        <p>
+          <b>{{ profile.data.follower_count | number }}</b> followers
+        </p>
+        <p>
+          <b>{{ profile.data.following_count | number }}</b> following
+        </p>
+      </div>
+      <p class="full-name">{{ profile.data.full_name }}</p>
+      <span>{{ profile.data.biography }}</span>
+    </div>
+  </header>
+  <mat-divider></mat-divider>
+  <app-grid layout="profile" [posts]="profile.posts"></app-grid>
+</div>

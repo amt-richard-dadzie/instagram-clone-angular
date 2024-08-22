@@ -1,0 +1,66 @@
+@import "../../../styles.scss";
+
+.form-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100vw;
+  height: 100vh;
+
+  .content {
+    place-self: center;
+    width: 60%;
+    text-align: center;
+
+    h1 {
+      font-weight: 600;
+      font-size: 2rem;
+    }
+
+    .header-text {
+      margin-block: 1.5rem;
+      display: block;
+    }
+    form {
+      @include flex-center(column, stretch, 0);
+
+      .name-info {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .btn-primary {
+        font-size: larger;
+      }
+    }
+  }
+
+  .bg-wrapper {
+    background-color: #3457dc;
+    clip-path: polygon(0% 0, 100% 0, 75% 100%, 0% 100%);
+    color: #fff;
+    @include flex-center(row, center);
+    justify-content: center;
+
+    .has-account {
+      width: 60%;
+      text-align: center;
+      @include flex-center(column, center);
+
+      span {
+        opacity: 0.8;
+      }
+
+      .btn-secondary {
+        border: 1px solid #f1f1f1;
+        color: #fff;
+        background-color: transparent;
+        padding: 0.8rem 2rem;
+
+        &:hover {
+          border-color: #1e1e1e;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
