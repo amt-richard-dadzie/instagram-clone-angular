@@ -1,10 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment.development';
 import { map, take } from 'rxjs';
-import { Post, Following } from './feed';
+import { Post, IResponse, ITag } from '../interfaces/feed';
+import { environment } from '../../environments/environment';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class FeedService {
   private readonly minMediaCount = 1;
   public constructor(private http: HttpClient) {}
@@ -15,16 +17,33 @@ export class FeedService {
       .pipe(
         map((res) => res.data.items),
         map((items) =>
-          items.filter(
-            (item) =>
-              item.carousel_media_count >= this.minMediaCount && item.media_name === 'album'
-          )
+          items.filter((item) => {
+            const isAlbum =
+              item.media_name === 'album' &&
+              item.carousel_media_count >= this.minMediaCount;
+            const isReel = item.media_name === 'reel';
+            return isAlbum || isReel;
+          })
         )
       );
   }
   public getFollowing(user = 'cddzeney') {
-    return this.http.get<Following>(
-      `${environment.apiUrl}v1/following?username_or_id_or_url=${user}`
+    return this.http
+      .get<IResponse>(
+        `${environment.apiUrl}v1/following?username_or_id_or_url=${user}`
+      )
+      .pipe(map((res) => res.data.items.slice(11, 13)));
+  }
+
+  public searchUser(query: string) {
+    return this.http.get<IResponse>(
+      `${environment.apiUrl}v1/search_users?search_query=${query}`
+    );
+  }
+
+  public searchHashTags(query: string) {
+    return this.http.get<ITag>(
+      `${environment.apiUrl}v1/search_hashtags?search_query=${query}`
     );
   }
 
