@@ -14,21 +14,20 @@ const setEnv = () => {
 
   const envConfigFileProd = `export const environment = {
   production: true,
-  AUTH_API_BASEURL: ${process.env['AUTH_API_BASEURL']}
-  APN:${process.env['APN']}
-  apiUrl: ${process.env['apiUrl']}
-  rapidApiKey: ${process.env['rapidApiKey']}
-  rapidApiHostName: ${process.env['rapidApiHostName']}
+  AUTH_API_BASEURL: '${process.env['AUTH_API_BASEURL']}',
+  APN: '${process.env['APN']}',
+  apiUrl: '${process.env['apiUrl']}',
+  rapidApiKey: '${process.env['rapidApiKey']}',
+  rapidApiHostName: '${process.env['rapidApiHostName']}'
 };`;
-
 
   const envConfigFileDev = `export const environment = {
   production: false,
-  AUTH_API_BASEURL: ${process.env['AUTH_API_BASEURL']}
-  APN:${process.env['APN']}
-  apiUrl: ${process.env['apiUrl']}
-  rapidApiKey: ${process.env['rapidApiKey']}
-  rapidApiHostName: ${process.env['rapidApiHostName']}
+  AUTH_API_BASEURL: '${process.env['AUTH_API_BASEURL']}',
+  APN:'${process.env['APN']}',
+  apiUrl: '${process.env['apiUrl']}',
+  rapidApiKey: '${process.env['rapidApiKey']}',
+  rapidApiHostName: '${process.env['rapidApiHostName']}',
 };`;
 
   writeFile(targetPathDev, envConfigFileDev, () => {
