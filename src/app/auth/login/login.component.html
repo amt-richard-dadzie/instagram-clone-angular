@@ -8,26 +8,19 @@
 
     <app-spinner *ngIf="loading()"></app-spinner>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <mat-form-field>
-        <mat-label>Email</mat-label>
-        <input
-          type="email"
-          matInput
-          placeholder="Enter your email"
-          formControlName="email"
-        />
-      </mat-form-field>
+      <app-custom-input-field
+        label="Email"
+        type="email"
+        placeholder="Enter your email"
+        [control]="email"
+      />
 
-      <mat-form-field>
-        <mat-label>Password</mat-label>
-        <input
-          type="password"
-          matInput
-          placeholder="Enter your password"
-          id="password"
-          formControlName="password"
-        />
-      </mat-form-field>
+      <app-custom-input-field
+        label="Password"
+        type="password"
+        [control]="password"
+        placeholder="Enter your password"
+      />
 
       <button
         class="btn btn-primary"
@@ -43,5 +36,7 @@
     </p>
   </div>
 
-  <p class="copyright">&copy; 2024 INSTAGRAM. All rights reserved.</p>
+  <p class="copyright">
+    &copy; {{ currentYear }} INSTAGRAM. All rights reserved.
+  </p>
 </section>

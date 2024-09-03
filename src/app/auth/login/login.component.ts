@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { AUTH_ACTIONS } from '../auth.actions';
 import { LoginRequestBody } from '../../interfaces/auth';
 import { selectLoading } from '../auth.selectors';
+import { emailValidator } from '../validators/email.validators';
 
 @Component({
   selector: 'app-login',
@@ -13,8 +14,16 @@ import { selectLoading } from '../auth.selectors';
 })
 export class LoginComponent {
   public loading = this.store.selectSignal(selectLoading);
+  public currentYear = new Date().getFullYear();
   public loginForm = this.formBuilder.group({
-    email: ['', Validators.required],
+    email: [
+      '',
+      [
+        Validators.required,
+        Validators.email,
+        emailValidator(['gmail.com', 'outlook.com', 'amalitech.com']),
+      ],
+    ],
     password: ['', Validators.required],
   });
 
@@ -23,6 +32,13 @@ export class LoginComponent {
     private store: Store<AuthState>
   ) {}
 
+  public get email() {
+    return this.loginForm.controls.email;
+  }
+
+  public get password() {
+    return this.loginForm.controls.password;
+  }
   public onSubmit() {
     this.store.dispatch(
       AUTH_ACTIONS.login(this.loginForm.value as LoginRequestBody)
