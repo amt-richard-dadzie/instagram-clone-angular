@@ -26,7 +26,7 @@ export class GridComponent implements OnChanges {
   public isLarge(index: number): boolean {
     if (this.layout === 'explore') {
       if (index < 2) return false;
-      return (index - 2) % 10 === 0 || (index = 5) % 10 === 0;
+      return (index - 2) % 10 === 0 || (index - 5) % 10 === 0;
     }
     return false;
   }
