@@ -22,62 +22,29 @@
 
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div class="name-info">
-        <mat-form-field>
-          <mat-label>First Name</mat-label>
-          <input
-            type="email"
-            matInput
-            placeholder="Enter your email"
-            formControlName="first_name"
-          />
-          <mat-error *ngIf="firstName?.errors?.['required']">
-            First name is required
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Last Name</mat-label>
-          <input
-            type="email"
-            matInput
-            placeholder="Enter your email"
-            formControlName="last_name"
-          />
-          <mat-error *ngIf="lastName.errors?.['required']">
-            Last name is required
-          </mat-error>
-        </mat-form-field>
+        <app-custom-input-field
+          label="First name"
+          placeholder="Enter your first name"
+          [control]="firstName"
+        />
+        <app-custom-input-field
+          label="Last name"
+          placeholder="Enter your last name"
+          [control]="lastName"
+        />
       </div>
-      <mat-form-field>
-        <mat-label>Email</mat-label>
-        <input
-          type="email"
-          matInput
-          placeholder="Enter your email"
-          formControlName="email"
-        />
-        <mat-error *ngIf="email.errors?.['required']">
-          Email is required
-        </mat-error>
-        <mat-error
-          *ngIf="email.errors?.['invalidDomain']"
-          >{{email.errors?.['invalidDomain'].message}}</mat-error
-        >
-      </mat-form-field>
-
-      <mat-form-field>
-        <mat-label>Password</mat-label>
-        <input
-          type="password"
-          matInput
-          placeholder="Enter your password"
-          id="password"
-          formControlName="password"
-        />
-        <mat-error *ngIf="password.errors?.['required']">
-          Password is mandatory
-        </mat-error>
-      </mat-form-field>
-
+      <app-custom-input-field
+        label="Email"
+        type="email"
+        placeholder="Enter your email"
+        [control]="email"
+      />
+      <app-custom-input-field
+        label="Password"
+        type="password"
+        placeholder="Enter your password"
+        [control]="password"
+      />
       <button
         class="btn btn-primary"
         type="submit"
