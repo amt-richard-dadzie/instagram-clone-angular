@@ -7,6 +7,8 @@ import { NgToastService } from 'ng-angular-popup';
 import { finalize } from 'rxjs';
 import { Router } from '@angular/router';
 import { constants } from '../../../utils/constants';
+import { validNameValidator } from '../validators/validname.validator';
+import { noWhiteSpaceValidator } from '../validators/whitespace.validator';
 
 @Component({
   selector: 'app-register',
@@ -15,8 +17,14 @@ import { constants } from '../../../utils/constants';
 })
 export class RegisterComponent {
   public registerForm = this.formBuilder.group({
-    first_name: ['', Validators.required],
-    last_name: ['', Validators.required],
+    first_name: [
+      '',
+      [Validators.required, noWhiteSpaceValidator(), validNameValidator()],
+    ],
+    last_name: [
+      '',
+      [Validators.required, noWhiteSpaceValidator(), validNameValidator()],
+    ],
     email: [
       '',
       [
@@ -37,19 +45,19 @@ export class RegisterComponent {
   ) {}
 
   public get firstName() {
-    return this.registerForm.controls['first_name'];
+    return this.registerForm.controls.first_name;
   }
 
   public get lastName() {
-    return this.registerForm.controls['last_name'];
+    return this.registerForm.controls.last_name;
   }
 
   public get email() {
-    return this.registerForm.controls['email'];
+    return this.registerForm.controls.email;
   }
 
   public get password() {
-    return this.registerForm.controls['password'];
+    return this.registerForm.controls.password;
   }
 
   public onSubmit() {

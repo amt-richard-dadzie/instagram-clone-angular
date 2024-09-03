@@ -15,9 +15,10 @@ import { StoreModule } from '@ngrx/store';
 import { authReducer } from './auth.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './auth.effects';
+import { CustomInputFieldComponent } from './custom-input-field/custom-input-field.component';
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent],
+  declarations: [LoginComponent, RegisterComponent, CustomInputFieldComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,
