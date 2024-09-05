@@ -41,9 +41,9 @@ export class SideBarComponent {
     this.isDrawerOpen = !this.isDrawerOpen;
   }
 
-  // @HostListener('document:click', ['$event'])
-  // public onDocumentClick() {
-  //   this.isDrawerOpen = false;
-  //   this.searchComponent.drawer.close();
-  // }
+  public onclickOutside() {
+    this.isDrawerOpen = false;
+    this.searchComponent.drawer.close();
+    this.searchComponent.searchControl.reset();
+  }
 }
