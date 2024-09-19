@@ -47,7 +47,7 @@ export const feedReducer = createReducer(
         ? {
           ...post,
           comment_count: post.comment_count + 1,
-          comments: [ comment, ...post.comments],
+          comments: post.comments ? [ comment, ...post.comments,]: [comment] 
         }
         : post
     ),

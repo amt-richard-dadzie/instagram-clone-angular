@@ -27,12 +27,12 @@ export class FeedService {
         )
       );
   }
-  public getFollowing(user = 'cddzeney') {
+  public getFollowing(user = '_kobby_r') {
     return this.http
       .get<IResponse>(
         `${environment.apiUrl}v1/following?username_or_id_or_url=${user}`
       )
-      .pipe(map((res) => res.data.items.slice(11, 13)));
+      .pipe(map((res) => res.data.items));
   }
 
   public searchUser(query: string) {
