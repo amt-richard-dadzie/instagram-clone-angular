@@ -14,6 +14,8 @@ import { NgToastModule } from 'ng-angular-popup';
 import { AuthModule } from './auth/auth.module';
 import { tokenInterceptor } from './auth/interceptors/token.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
+// import { feedReducer } from './feed/feed.reducer';
+import { FeedModule } from './feed/feed.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -21,6 +23,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     NgToastModule,
     AppRoutingModule,
     AuthModule,
+    FeedModule,
     NgxSpinnerModule.forRoot({ type: 'ball-spin-clockwise-fade-rotating' }),
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),

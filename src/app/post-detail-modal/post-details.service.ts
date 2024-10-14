@@ -12,7 +12,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class PostDetailsService {
-  private http = inject(HttpClient);
+  private  readonly http = inject(HttpClient);
 
   public fetchPostDetails(postCode: string): Observable<PostDetailsResponse> {
     return this.http

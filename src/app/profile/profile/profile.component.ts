@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ProfileData } from '../../interfaces/profile-info';
 import { FeedService } from '../../feed/feed.service';
 import { map, Observable, switchMap } from 'rxjs';
@@ -10,9 +10,8 @@ import { map, Observable, switchMap } from 'rxjs';
   styleUrl: './profile.component.scss',
 })
 export class ProfileComponent implements OnInit {
-  private route = inject(ActivatedRoute);
-  private feedService = inject(FeedService);
-  private router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+  private readonly feedService = inject(FeedService);
   public thumbnailImage!: string;
   public profile$!: Observable<ProfileData>;
   public profileImage$!: Observable<string>;

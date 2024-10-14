@@ -13,8 +13,11 @@ module.exports = tseslint.config(
     },
     extends: [
       eslint.configs.recommended,
+      // @ts-ignore
       ...tseslint.configs.recommended,
+      // @ts-ignore
       ...tseslint.configs.stylistic,
+      // @ts-ignore
       ...angular.configs.tsRecommended,
     ],
     processor: angular.processInlineTemplates,

@@ -10,7 +10,7 @@ import { FeedService } from './feed.service';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { feedReducer } from './feed.reducer';
 import { EffectsModule } from '@ngrx/effects';
@@ -20,7 +20,13 @@ import { SideBarComponent } from './layout/side-bar/side-bar.component';
 import { SearchComponent } from './layout/search/search.component';
 import { SharedModule } from '../shared/shared.module';
 import { SearchProfileComponent } from './layout/search-profile/search-profile.component';
-import { FormsModule } from '@angular/forms';
+import { CreateNewPostComponent } from './create-new-post/create-new-post.component';
+import {
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogTitle,
+} from '@angular/material/dialog';
 @NgModule({
   declarations: [
     PostCardComponent,
@@ -29,6 +35,7 @@ import { FormsModule } from '@angular/forms';
     SideBarComponent,
     SearchComponent,
     SearchProfileComponent,
+    CreateNewPostComponent,
   ],
   imports: [
     CommonModule,
@@ -37,6 +44,10 @@ import { FormsModule } from '@angular/forms';
     ReactiveFormsModule,
     FormsModule,
     MatCardModule,
+    MatDialogTitle,
+    MatDialogActions,
+    MatDialogClose,
+    MatDialogContent,
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,

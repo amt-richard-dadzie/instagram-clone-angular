@@ -34,19 +34,20 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
 
   // Validate user for requests to environment.apiUrl
   if (req.url.startsWith(environment.apiUrl)) {
-    return authService.validateUser().pipe(
-      switchMap(() => next(modifiedReq)),
-      catchError((error: HttpErrorResponse) => {
-        if (error.status === 0) {
-          toast.danger(
-            'Unable to connect to server',
-            constants.TOAST_ERROR_TITLE,
-            constants.TOAST_TIME_OUT
-          );
-        }
-        return throwError(() => error);
-      })
-    );
+    // return authService.validateUser().pipe(
+    //   switchMap(() => next(modifiedReq)),
+    //   catchError((error: HttpErrorResponse) => {
+    //     if (error.status === 0) {
+    //       toast.danger(
+    //         'Unable to connect to server',
+    //         constants.TOAST_ERROR_TITLE,
+    //         constants.TOAST_TIME_OUT
+    //       );
+    //     }
+    //     return throwError(() => error);
+    //   })
+    // );
+    return next(req);
   }
 
   // Handle 401 errors for requests to environment.AUTH_API_BASEURL

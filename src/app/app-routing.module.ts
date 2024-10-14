@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { authGuard } from './auth/auth.guard';
+// import { authGuard } from './auth/auth.guard';
 import { postDetailsResolver } from './post-detail-modal/profile-details.resolver';
 
 const routes: Routes = [
@@ -11,7 +11,7 @@ const routes: Routes = [
   },
   {
     path: 'feed',
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
     loadChildren: () => import('./feed/feed.module').then((m) => m.FeedModule),
   },
   {

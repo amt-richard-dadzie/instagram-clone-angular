@@ -5,12 +5,12 @@ export const FEED_ACTIONS = createActionGroup({
   source: 'Feed',
   events: {
     'Load Initial Feed': emptyProps(),
-    'Get user following': props<{
+    'Get user following Success': props<{
       following: User[];
     }>(),
     'Load Initial Feed Success': props<{
       posts: PostItem[];
-      following: User[];
+      following: User[]
     }>(),
     'Load More Feed': props<{ user: string }>(),
     'Load More Feed Success': props<{ posts: PostItem[] }>(),

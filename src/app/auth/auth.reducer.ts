@@ -2,6 +2,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { AuthState } from './auth.state';
 import { AUTH_ACTIONS } from './auth.actions';
+import { APP_ACTIONS } from '../app.state';
 
 export const initialState: AuthState = {
   login_token: null,
@@ -32,15 +33,10 @@ export const authReducer = createReducer(
     error,
     loading: false,
   })),
-  on(
-    AUTH_ACTIONS.getAuthState,
-    (state, { login_token, refresh_token, message }) => ({
-      ...state,
-      login_token,
-      refresh_token,
-      message,
-    })
-  ),
+  on(APP_ACTIONS.restoreAppState, (state, { auth }) => ({
+    ...state,
+    ...auth,
+  })),
   on(
     AUTH_ACTIONS.refreshTokenSuccess,
     (state, { login_token, refresh_token }) => ({

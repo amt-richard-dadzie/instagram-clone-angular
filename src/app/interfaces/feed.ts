@@ -145,4 +145,5 @@ export interface Post {
     count: number;
     items: PostItem[];
   };
+  pagination_token: string;
 }

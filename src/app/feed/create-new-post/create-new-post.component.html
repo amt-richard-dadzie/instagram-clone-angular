@@ -1,0 +1,22 @@
+<h2 class="fs-200">{{ selectedImage ? "Crop" : "Create new post" }}</h2>
+<mat-divider />
+<mat-dialog-content (dragover)="onDragOver($event)" (drop)="onDrop($event)">
+  @if (!selectedImage) {
+  <div>
+    <mat-icon fontSet="material-icons-outlined">image</mat-icon>
+    <p>Drag photos here</p>
+    <button (click)="triggerFileInput()">Select from computer</button>
+  </div>
+  }
+  <input
+    type="file"
+    #fileInput
+    (change)="onFileSelected($event)"
+    multiple
+    style="display: none"
+    accept="image/*,video/*"
+  />
+  @if (selectedImage) {
+  <img [src]="selectedImage" alt="" class="image-preview" />
+  }
+</mat-dialog-content>

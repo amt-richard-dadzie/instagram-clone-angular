@@ -1,4 +1,10 @@
-import { Component, inject, Input, OnChanges } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Input,
+  OnChanges,
+} from '@angular/core';
 import { PostItem } from '../../interfaces/feed';
 import { FeedService } from '../../feed/feed.service';
 import { Router } from '@angular/router';
@@ -7,12 +13,13 @@ import { Router } from '@angular/router';
   selector: 'app-grid',
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GridComponent implements OnChanges {
   @Input({ required: true }) public posts: PostItem[] = [];
   @Input({ required: true }) public layout: 'profile' | 'explore' = 'profile';
-  private router = inject(Router);
-  private feedService = inject(FeedService);
+  private readonly router = inject(Router);
+  private readonly feedService = inject(FeedService);
   public thumbnailImages: Record<string, string> = {};
 
   public ngOnChanges(): void {

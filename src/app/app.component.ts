@@ -1,7 +1,5 @@
 import { Component, HostListener, inject, OnInit, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectAuthState } from './auth/auth.selectors';
-import { AUTH_ACTIONS } from './auth/auth.actions';
 import {
   NavigationCancel,
   NavigationEnd,
@@ -10,6 +8,7 @@ import {
   Router,
 } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AppState, selectAppState, APP_ACTIONS } from './app.state';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +19,7 @@ export class AppComponent implements OnInit {
   public title = 'instagram-clone-angular';
 
   private store = inject(Store);
-  private authState = this.store.selectSignal(selectAuthState);
+  private readonly appState = this.store.selectSignal(selectAppState);
   public loading = signal(false);
 
   public constructor(
@@ -44,17 +43,17 @@ export class AppComponent implements OnInit {
 
   @HostListener('window:beforeunload', ['$event'])
   public beforeUnload() {
-    localStorage.setItem('auth', JSON.stringify(this.authState()));
+    localStorage.setItem('appState', JSON.stringify(this.appState()));
   }
 
   public ngOnInit(): void {
-    const retrievedAuthSate = localStorage.getItem('auth');
-    if (retrievedAuthSate) {
-      this.store.dispatch(
-        AUTH_ACTIONS.getAuthState(JSON.parse(retrievedAuthSate))
-      );
+    const retrievedAppState = localStorage.getItem('appState');
+
+    if (retrievedAppState) {
+      const appState: AppState = JSON.parse(retrievedAppState);
+      this.store.dispatch(APP_ACTIONS.restoreAppState(appState));
     }
 
-    localStorage.removeItem('auth');
+    localStorage.removeItem('appState');
   }
 }

@@ -8,8 +8,8 @@ import { User } from '../interfaces/feed';
 @Injectable()
 export class FeedEffects {
   public constructor(
-    private actions$: Actions,
-    private feedService: FeedService
+    private readonly actions$: Actions,
+    private readonly feedService: FeedService
   ) {}
 
   public loadInitialFeed$ = createEffect(() =>
@@ -18,7 +18,7 @@ export class FeedEffects {
       switchMap(() =>
         this.feedService.getFollowing().pipe(
           switchMap((users: User[]) =>
-            this.feedService.getPosts(users[0].username).pipe(
+            this.feedService.getPosts(users[7].username).pipe(
               map((posts) =>
                 FEED_ACTIONS.loadInitialFeedSuccess({
                   posts,

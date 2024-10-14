@@ -1,11 +1,7 @@
-import {
-  Actions,
-  createEffect,
-  ofType,
-} from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AUTH_ACTIONS } from './auth.actions';
 import { AuthService } from './auth.service';
-import { catchError, map, of, switchMap, tap } from 'rxjs';
+import { catchError, map, of, switchMap } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgToastService } from 'ng-angular-popup';
@@ -17,7 +13,7 @@ import { FEED_ACTIONS } from '../feed/feed.actions';
 @Injectable()
 export class AuthEffects {
   public constructor(
-    private actions: Actions,
+    private  actions: Actions,
     private authService: AuthService,
     private feedService: FeedService,
     private toast: NgToastService,
@@ -57,15 +53,17 @@ export class AuthEffects {
     )
   );
 
-  public init$ = createEffect(
-    () =>
-      this.actions.pipe(
-        ofType(AUTH_ACTIONS.loginSuccess),
-        tap((action) => console.log(action)),
-        switchMap(() => this.feedService.getFollowing().pipe(
-          map((user) => FEED_ACTIONS.getUserFollowing(user))
-        ))
-      ),
-    { dispatch: false }
+  public init$ = createEffect(() =>
+    this.actions.pipe(
+      ofType(AUTH_ACTIONS.loginSuccess),
+      switchMap(() =>
+        this.feedService.getFollowing().pipe(
+          map((user) =>
+            FEED_ACTIONS.getUserFollowingSuccess({ following: user })
+          ),
+          catchError((error) => of(FEED_ACTIONS.feedError({ error })))
+        )
+      )
+    )
   );
 }

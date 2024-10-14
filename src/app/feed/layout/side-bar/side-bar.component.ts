@@ -3,6 +3,8 @@ import { SearchComponent } from '../search/search.component';
 import { Store } from '@ngrx/store';
 import { AUTH_ACTIONS } from '../../../auth/auth.actions';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateNewPostComponent } from '../../create-new-post/create-new-post.component';
 
 @Component({
   selector: 'app-side-bar',
@@ -10,9 +12,11 @@ import { Router } from '@angular/router';
   styleUrl: './side-bar.component.scss',
 })
 export class SideBarComponent {
-  @ViewChild('searchComponent') private searchComponent!: SearchComponent;
-  private store = inject(Store);
-  private router = inject(Router);
+  @ViewChild('searchComponent')
+  private readonly searchComponent!: SearchComponent;
+  private readonly store = inject(Store);
+  private readonly router = inject(Router);
+  private readonly dialog = inject(MatDialog);
   public isDrawerOpen = false;
 
   public navItems = [
@@ -23,7 +27,17 @@ export class SideBarComponent {
       action: (event: Event) => this.toggleDrawer(event),
     },
     { link: 'explore', icon: 'explore', label: 'Explore' },
-    { icon: 'add_circle', label: 'Create' },
+    {
+      icon: 'add_circle',
+      label: 'Create',
+      action: () =>
+        this.dialog.open(CreateNewPostComponent, {
+          maxWidth: '570px',
+          maxHeight: '600px',
+          height: '100%',
+          width: '100%',
+        }),
+    },
     { link: 'profile/_cea_ella', label: 'Profile' },
     {
       icon: 'menu',
