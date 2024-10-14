@@ -9,7 +9,7 @@ import { PostItem } from '../../interfaces/feed';
   styleUrl: './explore-list.component.scss',
 })
 export class ExploreListComponent implements OnInit {
-  private exploreService = inject(ExploreService);
+  private readonly exploreService = inject(ExploreService);
   public explore$!: Observable<PostItem[]>;
   public loading = signal(true);
 

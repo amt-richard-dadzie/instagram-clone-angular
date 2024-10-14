@@ -1,6 +1,8 @@
 import { createReducer, on } from '@ngrx/store';
 import { FeedState } from './feed.state';
 import { FEED_ACTIONS } from './feed.actions';
+import { APP_ACTIONS } from '../app.state';
+import { AUTH_ACTIONS } from '../auth/auth.actions';
 
 export const initialState: FeedState = {
   posts: [],
@@ -11,6 +13,10 @@ export const initialState: FeedState = {
 
 export const feedReducer = createReducer(
   initialState,
+  on(FEED_ACTIONS.getUserFollowingSuccess, (state, { following }) => ({
+    ...state,
+    following
+  })),
   on(FEED_ACTIONS.loadInitialFeed, FEED_ACTIONS.loadMoreFeed, (state) => ({
     ...state,
     isLoading: true,
@@ -47,9 +53,17 @@ export const feedReducer = createReducer(
         ? {
           ...post,
           comment_count: post.comment_count + 1,
-          comments: [ comment, ...post.comments],
+          comments: post.comments ? [ comment, ...post.comments,]: [comment] 
         }
         : post
     ),
+  })),
+  on(APP_ACTIONS.restoreAppState, (state, {feed}) => ({
+    ...state,
+    ...feed
+  })),
+  on(AUTH_ACTIONS.logOut, (state) => ({
+    ...state,
+    ...initialState
   }))
 );

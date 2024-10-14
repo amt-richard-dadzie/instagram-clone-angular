@@ -8,6 +8,7 @@ import {
   selectFeedIsLoading,
 } from '../feed.selectors';
 import { FeedState } from '../feed.state';
+import { User } from '../../interfaces/feed';
 
 @Component({
   selector: 'app-post-list',
@@ -17,9 +18,10 @@ import { FeedState } from '../feed.state';
 export class PostListComponent implements OnInit {
   public posts = this.store.selectSignal(selectPosts);
   public isLoading = this.store.selectSignal(selectFeedIsLoading);
-  private following$ = this.store.select(selectFollowing);
+  private readonly following$ = this.store.select(selectFollowing);
+ 
 
-  public constructor(private store: Store<FeedState>) {}
+  public constructor(private readonly store: Store<FeedState>) {}
 
   public ngOnInit(): void {
     if (this.posts().length === 0) {
@@ -34,10 +36,15 @@ export class PostListComponent implements OnInit {
         document.body.offsetHeight &&
       !this.isLoading()
     ) {
-      this.following$.pipe(take(1)).subscribe((following) => {
-        const user = following[1].username;
+      this.following$.pipe(take(1)).subscribe((users) => {
+        const user = this.getRandomUserName(users);
         this.store.dispatch(FEED_ACTIONS.loadMoreFeed({ user }));
       });
     }
+  }
+
+  private getRandomUserName(users: User[]) {
+    const randomIndex = Math.floor(Math.random() * users.length);
+    return users[randomIndex].username;
   }
 }

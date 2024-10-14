@@ -8,7 +8,10 @@
   </header>
   <nav>
     @for (item of navItems; track $index) {
-    <button [routerLink]="item.link" (click)="item.action && item.action($event)">
+    <button
+      [routerLink]="item.link"
+      (click)="item.action && item.action($event)"
+    >
       <span>
         <mat-icon>{{ item.icon }}</mat-icon>
         <span>{{ item.label }}</span>
@@ -17,4 +20,4 @@
     }
   </nav>
 </aside>
-<app-search #searchComponent></app-search>
+<app-search #searchComponent appClickedOutside (clickedOutside)="onclickOutside()"></app-search>

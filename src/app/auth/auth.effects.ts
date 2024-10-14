@@ -7,12 +7,15 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NgToastService } from 'ng-angular-popup';
 import { Router } from '@angular/router';
 import { constants } from '../../utils/constants';
+import { FeedService } from '../feed/feed.service';
+import { FEED_ACTIONS } from '../feed/feed.actions';
 
 @Injectable()
 export class AuthEffects {
   public constructor(
-    private actions: Actions,
+    private  actions: Actions,
     private authService: AuthService,
+    private feedService: FeedService,
     private toast: NgToastService,
     private router: Router
   ) {}
@@ -45,6 +48,20 @@ export class AuthEffects {
             );
             return of(AUTH_ACTIONS.loginFailure({ error: error.message }));
           })
+        )
+      )
+    )
+  );
+
+  public init$ = createEffect(() =>
+    this.actions.pipe(
+      ofType(AUTH_ACTIONS.loginSuccess),
+      switchMap(() =>
+        this.feedService.getFollowing().pipe(
+          map((user) =>
+            FEED_ACTIONS.getUserFollowingSuccess({ following: user })
+          ),
+          catchError((error) => of(FEED_ACTIONS.feedError({ error })))
         )
       )
     )

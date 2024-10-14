@@ -1,6 +1,6 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ResponseCombined, HashTags } from '../../../interfaces/feed';
+import { ResponseCombined } from '../../../interfaces/feed';
 import { FeedService } from '../../feed.service';
 
 @Component({
@@ -12,7 +12,6 @@ export class SearchProfileComponent implements OnInit {
   private feedService = inject(FeedService);
   @Input() public user!: Partial<ResponseCombined>;
   public profileImage$!: Observable<string>;
-  public hash!: HashTags;
 
   public ngOnInit(): void {
     if (this.user?.profile_pic_url) {

@@ -33,7 +33,7 @@ export class RegisterComponent {
         emailValidator(['gmail.com', 'outlook.com', 'amalitech.com']),
       ],
     ],
-    password: ['', Validators.required],
+    password: ['', [Validators.required, Validators.minLength(3)]],
   });
   public loading = signal(false);
 

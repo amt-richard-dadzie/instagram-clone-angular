@@ -40,6 +40,8 @@ export interface IResponse {
   };
 }
 
+
+
 export interface Optional {
   media_count?: number;
   name?: string;
@@ -143,4 +145,5 @@ export interface Post {
     count: number;
     items: PostItem[];
   };
+  pagination_token: string;
 }

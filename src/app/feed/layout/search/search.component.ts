@@ -11,7 +11,6 @@ import {
   map,
   Observable,
   switchMap,
-  tap,
 } from 'rxjs';
 import { FeedService } from '../../feed.service';
 import { ResponseCombined } from '../../../interfaces/feed';
@@ -44,10 +43,11 @@ export class SearchComponent implements OnInit {
     );
 
     this.searchResults$ = searchInputChanges$.pipe(
-      tap((query) => {
-        this.hasQuery.set(!!query?.trim());
+      filter((query) => {
+        const isQuery = !!query?.trim();
+        this.hasQuery.set(isQuery);
+        return isQuery;
       }),
-      filter((query) => !!query?.trim()),
       switchMap((query) => this.performSearch(query as string)),
       map((res) => res.data.items)
     );

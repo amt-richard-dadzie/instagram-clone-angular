@@ -7,8 +7,8 @@ import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ExploreService {
-  private http = inject(HttpClient);
-  private feedService = inject(FeedService);
+  private readonly http = inject(HttpClient);
+  private readonly feedService = inject(FeedService);
   public loading = signal(true);
 
   private getFollowing(user = '_kobby_r') {
